@@ -47,6 +47,7 @@ else:
 steam_web_apikey=secrets.steam_web_apikey #for domain adventure.land: https://partner.steamgames.com/doc/webapi_overview/auth#create_publisher_key
 steam_publisher_web_apikey=secrets.steam_publisher_web_apikey #from: https://partner.steamgames.com/pub/group/48241/61965/
 
+is_sdk = True
 from design.animations import *
 from design.achievements import *
 from design.game import *
@@ -98,25 +99,28 @@ ip_to_subdomain={ #IMPORTANT: SPECIAL PAGE RULES ARE NEEDED: https://dash.cloudf
 	"195.201.181.245":"eud1",
 	"158.69.23.127":"usd1",
 }
-HTTPS_MODE=True #IMPORTANT: converts server IP's to subdomain urls at create_server_api [17/11/18]
-always_amazon_ses=True
+HTTPS_MODE=False #IMPORTANT: converts server IP's to subdomain urls at create_server_api [17/11/18]
+always_amazon_ses=False
 SCREENSHOT_MODE=is_sdk and False
 game_name="Adventure Land"
 appengine_id="twodimensionalgame"
-live_domain=["www","adventure","land"]
-sdk_domain=["www","thegame","com"]
+live_domain=["localhost"]
+sdk_domain=["localhost"]
 SDK_UPLOAD_PASSWORD=ELEMENT_PASSWORD=secrets.sdk_password
 
 def gdi(self=None):
 	domain=GG()
 	if is_sdk:
-		domain.base_url=self and "http://%s"%self.request.headers.get("Host") or "http://%s.%s"%(sdk_domain[1],sdk_domain[2])
-		domain.pref_url=self and "http://%s"%self.request.headers.get("Host") or "http://%s.%s"%(sdk_domain[1],sdk_domain[2])
-		domain.server_ip="192.168.1.125"
+		# domain.base_url=self and "http://%s"%self.request.headers.get("Host") or "http://%s.%s"%(sdk_domain[1],sdk_domain[2])
+		# domain.pref_url=self and "http://%s"%self.request.headers.get("Host") or "http://%s.%s"%(sdk_domain[1],sdk_domain[2])
+		domain.base_url = "http://localhost:8083"
+		domain.pref_url = "http://localhost:8083"
+		domain.server_ip="localhost"
 		domain.stripe_pkey=stripe_pkey
 		domain.stripe_enabled=False
 		domain.https_mode=False
-		domain.domain=self and ["www",self.request.headers.get("Host").split(".")[0],self.request.headers.get("Host").split(".")[1]] or sdk_domain
+		# domain.domain=self and ["www",self.request.headers.get("Host").split(".")[0],self.request.headers.get("Host").split(".")[1]] or sdk_domain
+		domain.domain = ["localhost"]
 	else:
 		protocol="http"
 		if self and "https" in (self.request.headers.get("Cf-Visitor") or ""): protocol="https"

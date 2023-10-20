@@ -281,8 +281,11 @@ def security_threat(self,domain):
 	if not referer: return False
 	referer=referer.replace("http://","").replace("https://","")
 	#referer="www.thegame2.com"
-	logging.info(referer)
+	logging.info("referer: {}".format(referer))
+	## added more local stuff
 	if referer.startswith("127.0.0.1"): return False
+	if referer.startswith("192.168"): return False
+	if referer.startswith("localhost"): return False
 	if not (referer.startswith("%s.%s.%s/"%(domain.domain[0],domain.domain[1],domain.domain[2])) or referer.startswith("%s.%s/"%(domain.domain[1],domain.domain[2])) or referer=="%s.%s.%s"%(domain.domain[0],domain.domain[1],domain.domain[2]) or referer=="%s.%s"%(domain.domain[1],domain.domain[2])):
 		self.response.out.write("Threat detected")
 		return True
@@ -1795,7 +1798,13 @@ def get_domain(self=None,url=None):
 		if self: url=self.request.url
 		try: url=url[0:url.index("/",8)+1] #in case the url doesn't end with / [25/09/15]
 		except: pass
-		url=url.replace("http://",""); url=url.replace("https://",""); url=url.replace("/",""); url=url.split(".")
+		url=url.replace("http://",""); url=url.replace("https://",""); url=url.replace("/","");
+		if "localhost:" in url:
+			url = url.split(":")[0]
+
+		url=url.split(".")
+		if ("localhost" in url):
+			return ["", "localhost", url[0].split("localhost")[1]]
 		if len(url)==2: return ["www",url[0],url[1]]
 		return [url[-3],url[-2],url[-1]] #to prevent the www.geobird.com.test.com-like url's [25/09/15]
 	else:
@@ -1807,7 +1816,8 @@ def get_cookie(self,name):
 
 def set_cookie(self,name,value):
 	subdomain,domainname,toplevel=get_domain(self)
-	self.response.set_cookie(name,to_str(value),max_age=86400*365*5, path='/',domain='.%s.%s'%(domainname,toplevel),secure=secure_cookies)
+	# self.response.set_cookie(name,to_str(value),max_age=86400*365*5, path='/',domain='.%s.%s'%(domainname,toplevel),secure=secure_cookies)
+	self.response.set_cookie(name,to_str(value),max_age=86400*365*5, path='/',domain='localhost',secure=secure_cookies)
 
 def delete_cookie(self,name):
 	subdomain,domainname,toplevel=get_domain(self)

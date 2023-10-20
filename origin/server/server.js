@@ -13,8 +13,8 @@ function getClient(){
     }
 }
 
-var host = "0.0.0.0";
-var port = 1080;
+var host = "localhost";
+var port = 8022;
 var http_server = http.createServer(httpHandler);
 var io = require("socket.io").listen(http_server);
 http_server.listen(port, host);

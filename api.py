@@ -1,3 +1,4 @@
+import json
 from config import *
 from functions import *
 
@@ -11,7 +12,7 @@ def signup_or_login_api(**args):
 
 	if not password:
 		jjson(self,{"type":"eval","code":"$('.passwordui').show()"})
-		jhtmle(self,"No Password Entered");
+		jhtmle(self,"No Password Entered")
 		return
 
 	existing=get_user(email=email,phrase_check=True)
@@ -1494,6 +1495,9 @@ def create_server_api(**args):
 	if is_sdk: actual_ip=ip=domain.server_ip
 	if domain.https_mode: ip="%s.%s.%s"%(ip_to_subdomain.get(ip,ip),live_domain[1],live_domain[2])
 	lat,lon=(self.request.headers.get("X-Appengine-Citylatlong")or"0,0").split(",")
+
+	actual_ip = actual_ip.split(":")[0]
+	ip = actual_ip
 	try: lat,lon=float(lat),float(lon)
 	except: lat,lon=0,0
 
@@ -1716,7 +1720,7 @@ class APICall(webapp.RequestHandler):
 		method="%s_api"%method
 		if args: args=json.loads(args)
 		if not args: args={}
-		logging.info("\n\nAPI Method Called: %s Arguments: %s\n"%(method,simplify_args_for_logging(args)))
+		logging.info("\n\nUser [%s] - API Method Called: %s Arguments: %s\n"%(user, method,simplify_args_for_logging(args)))
 		#logging.info(self.request.cookies.get("auth"))
 		if not user and method not in ["log_error_api","signup_or_login_api","load_article_api","get_server_api","test_api","create_server_api","stop_server_api","update_server_api","reload_server_api","set_friends_api","not_friends_api","password_reminder_api","server_event_api","reset_password_api","ban_user_api","send_mail_api","log_chat_api","take_item_from_mail_api","broadcast_api"]:
 			if self.request.get("server_auth"): jhtml(self,{"failed":1,"reason":"nouser"}); return

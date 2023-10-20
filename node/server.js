@@ -120,7 +120,7 @@ var mode={
 	"noxy":0,
 	"nopush":0,
 	"freeze_latest":0, // to test latest_calls numbers
-	"log_all":0, // logs all incoming websocket calls
+	"log_all":1, // logs all incoming websocket calls
 	"friendly_fire":1,
 	"fast_mlevels":0,
 	"map_respawns":0, // respawn at maps or where they define [05/12/18]
@@ -341,8 +341,8 @@ function init_game()
 		{
 			log_trace("init",e);
 		}
-	},function(){
-		console.log("#X init_game's create_server call failed");
+	},function(error){
+		console.log("#X init_game's create_server call failed with error: ", error);
 	});
 }
 

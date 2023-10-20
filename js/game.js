@@ -1149,7 +1149,7 @@ function init_socket(args)
 		window.socket.destroy();
 	}
 	$(".disconnected").hide();
-	if(is_sdk && (Cookies.get("windows") || Cookies.get("local_ip") || window.location.host=="advanture.land" || window.location.host=="x.thegame.com")) server_addr="192.168.1.125"; // Cookies.set('windows','1',{expires:12*365});
+	if(is_sdk && (Cookies.get("windows") || Cookies.get("local_ip") || window.location.host=="advanture.land" || window.location.host=="x.thegame.com" || window.location.host=="localhost:8083")) server_addr="localhost"; // Cookies.set('windows','1',{expires:12*365});
 	else if(is_sdk)
 	{
 		if(window.location.origin=='http://127.0.0.1/') server_addr="127.0.0.1";
@@ -1157,7 +1157,7 @@ function init_socket(args)
 	}
 	var query=args.secret&&"desktop="+(!is_comm&&1||"")+"&secret="+args.secret||undefined;
 	if(location.protocol=="https:") window.socket=io('wss://'+server_addr+':'+server_port,{secure:true,transports:['websocket'],query:query});
-	else window.socket=io(server_addr+':'+server_port,{transports:['websocket'],query:query});
+	else window.socket=io(`${server_addr}:${server_port}`,{transports:['websocket'],query:query});
 	add_log("Connecting to the server.");
 	socket_ready=false; socket_welcomed=false; observing=null; $("#observeui").hide();
 	original_onevent=socket.onevent;

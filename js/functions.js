@@ -1568,7 +1568,7 @@ function show_character_snippet(name)
 {
 	var oname=name;
 	name=name.toLowerCase();
-	var html="<textarea id='renderer"+name+"'></textarea><div class='gamebutton' style='position: absolute; bottom: -68px; right: -5px' onclick='eval_character_snippet(\""+name+"\")'>EXECUTE</div>";
+	var html="<textarea id='renderer"+name+"' ></textarea><div class='gamebutton' style='position: absolute; bottom: -68px; right: -5px' onclick='eval_character_snippet(\""+name+"\")'>EXECUTE</div>";
 	show_modal(html);
 	var value="// "+oname+"\n";
 	if(window["codemirror_render"+name])
