@@ -1152,8 +1152,9 @@ function init_socket(args)
 	if(is_sdk && (Cookies.get("windows") || Cookies.get("local_ip") || window.location.host=="advanture.land" || window.location.host=="x.thegame.com" || window.location.host=="localhost:8083")) server_addr="localhost"; // Cookies.set('windows','1',{expires:12*365});
 	else if(is_sdk)
 	{
-		if(window.location.origin=='http://127.0.0.1/') server_addr="127.0.0.1";
-		else server_addr="0.0.0.0";
+		// if(window.location.origin=='http://127.0.0.1/') server_addr="127.0.0.1";
+		// else server_addr="0.0.0.0";
+		server_addr = window.location.hostname
 	}
 	var query=args.secret&&"desktop="+(!is_comm&&1||"")+"&secret="+args.secret||undefined;
 	if(location.protocol=="https:") window.socket=io('wss://'+server_addr+':'+server_port,{secure:true,transports:['websocket'],query:query});

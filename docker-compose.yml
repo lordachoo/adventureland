@@ -12,6 +12,7 @@ services:
     image: al
     build:
       context: ./
+    restart: always
     ports:
       - "8022:8022"
     entrypoint: ["/adventureland/node-entrypoint.sh", "EU", "I", "8022"]
@@ -21,6 +22,7 @@ services:
     image: al
     build:
       context: ./
+    restart: always
     ports:
       - "8023:8023"
     entrypoint: ["/adventureland/node-entrypoint.sh", "US", "I", "8023"]

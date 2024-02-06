@@ -40,6 +40,11 @@ RUN mkdir adventureland && cd adventureland
 
 # copy from the current location to our AL folder
 COPY . /adventureland
+COPY ./useful/template.secrets.py /adventureland/secrets.py
+COPY ./useful/template.variables.js /adventureland/node/variables.js
+COPY ./useful/template.live_variables.js /adventureland/node/live_variables.js
+
+RUN pip install flask -t /adventureland/lib
 
 # npm install performs from the workdir. why? idk. it's stupid
 WORKDIR /adventureland/scripts

@@ -3,7 +3,7 @@ module.exports = {
   functions_path: "./server/server_functions.js",
   worker_path: "./server/server_worker.js",
   data_path: "./server/data.js",
-  base_url: "https://yourappspoturldontincludedashes.appspot.com",
+  base_url: "http://adventureland:8083",
   keyword: "123",
   access_master: "123",
   bot_key: "123",

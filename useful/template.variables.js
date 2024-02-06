@@ -5,7 +5,7 @@ module.exports = {
   functions_path: path.resolve(__dirname, "server_functions.js"),
   worker_path: path.resolve(__dirname, "server_worker.js"),
   data_path: path.resolve(__dirname, "data.js"),
-  base_url: "http://thegame.com",
+  base_url: "http://adventureland:8083",
   keyword: "123",
   access_master: "123",
   bot_key: "123",
