@@ -1739,11 +1739,11 @@ for name in armor.keys():
 	res_gains=[0,0.5,2.5,5.5,7.5]
 	xtier=([0.5,0.5,2,3.4,4.5,6][ftier]+[0.5,0.5,2,4,5,6][ctier]+tier)/3.0
 	#if not current.has_key("edge") and tier>1: current["edge"]=(tier-1)*2
-	if tier<=1.25 and not current.has_key("grades"): current["grades"]=[7,9]
-	elif tier<=1.5 and not current.has_key("grades"): current["grades"]=[4,8]
-	elif tier<=2.4 and not current.has_key("grades"): current["grades"]=[0,7]
-	elif tier<=2.75 and not current.has_key("grades"): current["grades"]=[0,5]
-	elif not current.has_key("grades"): current["grades"]=[0,0]
+	if tier<=1.25 and "grades" not in current: current["grades"]=[7,9]
+	elif tier<=1.5 and "grades" not in current: current["grades"]=[4,8]
+	elif tier<=2.4 and "grades" not in current: current["grades"]=[0,7]
+	elif tier<=2.75 and "grades" not in current: current["grades"]=[0,5]
+	elif "grades" not in current: current["grades"]=[0,0]
 	if len(current["grades"])==2:
 		current["grades"].append(10); current["grades"].append(12)
 		if tier>=4:
@@ -2583,7 +2583,7 @@ accessories={
 
 for name in accessories.keys():
 	current=accessories[name]
-	if not current.has_key("grades"): current["grades"]=[3,5]
+	if "grades" not in current: current["grades"]=[3,5]
 
 #Ring of Mage PVP: 30 Armor, 10 Res. Piercing, 120HP
 #Ring of Warrior PVP: 20 Res, 10 Armor, 10 Armor. Piercing
@@ -3300,6 +3300,7 @@ weapons={
 		"explosion":20,
 		"skin":"glolipop",
 		"ability":"sugarrush",
+		"attr0": 0.25,
 		"damage_type":"physical",
 		"upgrade":{
 			"explosion":2,
@@ -3317,6 +3318,7 @@ weapons={
 		"skin":"ololipop",
 		"damage_type":"physical",
 		"ability":"sugarrush",
+		"attr0": 0.25,
 		"upgrade":{
 			"explosion":2,
 		},
@@ -3497,6 +3499,7 @@ weapons={
 		"skin":"candycanesword",
 		"damage_type":"physical",
 		"ability":"sugarrush",
+		"attr0": 0.25,
 		"upgrade":{
 			"range":-0.5,
 		},
@@ -3836,8 +3839,8 @@ weapons={
 
 for name in weapons.keys():
 	current=weapons[name]; tier=current.get("tier",1)
-	if not current.has_key("upgrade"): continue
-	if not current.has_key("grades"):
+	if "upgrade" not in current: continue
+	if "grades" not in current:
 		if tier<1: current["grades"]=[8,9]
 		elif tier<=1: current["grades"]=[7,9]
 		elif tier<=1.5: current["grades"]=[5,8]
@@ -3925,11 +3928,11 @@ for name in weapons.keys():
 		current["upgrade"]["range"]=1
 		current["attack"]=20+(tier-1)*6
 		current["upgrade"]["attack"]=4+(tier-1)*1.1
-	if current.get("wtype")=="bow":
+	if current.get("wtype")=="bow": #Bows are underperforming compared to Dual-Wield
 		current["range"]=55+(tier-1)*10
 		current["upgrade"]["range"]=4+current["range"]*4.0/60
-		current["attack"]=20+(tier-1)*6
-		current["upgrade"]["attack"]=4+(tier-1)*0.8
+		current["attack"]=(20+(tier-1)*6)*1.25 #Increase base attack by 25% 11/12/23
+		current["upgrade"]["attack"]=(4+(tier-1)*0.8)*1.25 #Increase upgrade scaling by 25% 11/12/23
 		current["projectile"]=current.get("projectile","arrow")
 	if current.get("wtype")=="staff":
 		current["range"]=50+(tier-1)*6
@@ -3954,8 +3957,8 @@ for name in weapons.keys():
 	if current.get("wtype")=="crossbow": #Like 1.4X Bow's
 		current["range"]=85+(tier-1)*16
 		current["upgrade"]["range"]=4+current["range"]*4.0/60
-		current["attack"]=30+(tier-1)*7
-		current["upgrade"]["attack"]=5.5+(tier-1)*0.8
+		current["attack"]=(30+(tier-1)*7)*1.25 #Match the Bow changes 11/12/23
+		current["upgrade"]["attack"]=(5.5+(tier-1)*0.8)*1.25 #Match the Bow Changes 11/12/23
 		current["projectile"]=current.get("projectile","arrow")
 	if current.get("wtype")=="wand":
 		current["range"]=30+(tier-1)*5
@@ -4784,7 +4787,7 @@ scrolls={
 		"stat":"evasion",
 		"name":"Evasion Scroll",
 		"explanation":"Adds Evasion to an armor with a Special Stat attribute.",
-		"evasion":2,
+		"multiplier":0.325,
 		"s":True,
 		"g":8000,
 	},
@@ -4794,7 +4797,7 @@ scrolls={
 		"stat":"reflection",
 		"name":"Reflection Scroll",
 		"explanation":"Adds Reflection to an armor with a Stat attribute.",
-		"multiplier":0.125,
+		"multiplier":0.15,
 		"s":True,
 		"g":8000,
 	},

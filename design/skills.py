@@ -145,7 +145,7 @@ skills={
 	"snowball":{
 		"type":"skill",
 		"skin":"snowball",
-		"inventory":["snowball"],
+		"consume":"snowball",
 		"name":"Snowball",
 		"explanation":"Throw a snowball at someone!",
 		"condition":"frozen",
@@ -741,6 +741,7 @@ skills={
 		"damage_multiplier":1.5,
 		"cooldown":30000,
 		"range_multiplier":3,
+		"range_bonus":20,
 		"mp":400,
 		"target":True,
 		"hostile":True,
@@ -1168,7 +1169,7 @@ skills={
 	}
 }
 for name in skills:
-	if skills[name].has_key("condition") and not skills[name].has_key("duration") and conditions.has_key(skills[name]["condition"]) and conditions[skills[name]["condition"]]:
+	if "condition" in skills[name] and "duration" not in skills[name] and skills[name]["condition"] in conditions and conditions[skills[name]["condition"]]:
 		try:
 			skills[name]["duration"]=conditions[skills[name]["condition"]]["duration"]
 		except:

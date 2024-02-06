@@ -370,10 +370,9 @@ function render_character_sheet()
 		if(character.ctype=="merchant") html+="<div><span style='color:gray'>Tax:</span> "+(character.tax*100)+"%</div>";
 		if(character.ctype=="priest")
 		{
-			html+="<div><span style='color:gray'>Heal:</span> "+character.attack+"</div>";
-			html+="<div><span style='color:gray'>Attack:</span> "+round(character.attack*0.4)+"</div>";
+			html+="<div><span style='color:gray'>Heal:</span> "+character.heal+"</div>";
 		}
-		else html+="<div><span style='color:gray'>Attack:</span> "+character.attack+"</div>";
+		html+="<div><span style='color:gray'>Attack:</span> "+character.attack+"</div>";
 		html+="<div><span style='color:gray'>Attack Speed:</span> "+round(character.frequency*100)+"</div>";
 		html+="<div><span style='color:gray'>Strength:</span> "+character.str+"</div>";
 		html+="<div><span style='color:gray'>Intelligence:</span> "+character['int']+"</div>";
@@ -3190,7 +3189,12 @@ function render_item(selector,args)
 			else if(item.ability=="sugarrush")
 			{
 				html+=bold_prop_line("Ability","Sugar Rush","#D64770");
-				html+="<div style='color: #C3C3C3'>"+"Trigger a Sugar Rush on attack with 0.25% chance. Gain 240 Attack Speed for 10 seconds!</div>";
+				html+="<div style='color: #C3C3C3'>"+"Trigger a Sugar Rush on attack with "+prop.attr0+"% chance. Gain 240 Attack Speed for 10 seconds!</div>";
+			}
+			else if(item.ability=="charm")
+			{
+				html+=bold_prop_line("Ability","Charm","#D64770");
+				html+="<div style='color: #C3C3C3'>"+"Charm an enemy with "+prop.attr0+"% chance. Activate the ability from the 'SKILLS' system.</div>";
 			}
 			else if(item.ability=="restore_mp")
 			{
