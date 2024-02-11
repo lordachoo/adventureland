@@ -2,6 +2,8 @@ version: "3.7"
 services:
   adventureland:
     image: al
+    volumes:
+      - al-data-volume:/appserver/storage
     build:
       context: ./
     restart: always
@@ -28,3 +30,11 @@ services:
     entrypoint: ["/adventureland/node-entrypoint.sh", "US", "I", "8023"]
     depends_on:
       - adventureland
+
+volumes:
+  al-data-volume:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /srv/adventureland/data

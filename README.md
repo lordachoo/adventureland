@@ -7,12 +7,27 @@ Forked from [ALTUSio Dockerization Branch](https://github.com/ATLUSio/adventurel
 - `deployAdventureLand.sh` does the below already
 - Assumes a standard clone of the repo
 
-## Deploying the server manually
+## Deploying the server initially
 
 ```
-git pull origin dockerization
-docker build -t adventureland .
-docker compose up
+$ cd /srv
+$ git clone git@github.com:lordachoo/adventureland.git
+$ screen -S adventureland    <---- screen for persistence
+$ ./startAdventureLand.sh 
+```
+
+## Starting / Restarting the server
+
+```
+- You can kill the server via CTRL+C
+- restart via ./startAdventureLand.sh
+- If you see 'Server Exists' errors from the game servers, run `http://YOUR_IP/rearm`
+```
+
+## Data Persistence
+
+```
+- Default volume is at /srv/adventureland/data (and /var/lib/docker/volumes/adventureland_al-data-volume/_data) 
 ```
 
 ## Access
@@ -20,7 +35,15 @@ docker compose up
 - Web server: http://YOUR_IP:8083
 - Admin Interface: http://YOUR_IP:8000
 
-* Original README.md below *
+## Utilities
+
+```
+- startAdventureLand.sh - Deploys adventure land server containers
+- enterAdventureLandContainer.sh - Enters the AdventureLand front-end container (Datastore, web server, etc)
+- removeContainers.sh - Cleans up / removes the containers - they will be rebuilt again with ./startAdventureLand.sh if needed. Since data is persistent this should be non-destructive.
+```
+
+** Original README.md below **
 
 # Adventure Land - The Open Source CODE MMORPG
 
