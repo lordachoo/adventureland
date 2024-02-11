@@ -1,3 +1,27 @@
+# Dockerized Adventure Land
+
+Forked from [ALTUSio Dockerization Branch](https://github.com/ATLUSio/adventureland)
+
+# Notes on Docker
+
+- `deployAdventureLand.sh` does the below already
+- Assumes a standard clone of the repo
+
+## Deploying the server manually
+
+```
+git pull origin dockerization
+docker build -t adventureland .
+docker compose up
+```
+
+## Access
+
+- Web server: http://YOUR_IP:8083
+- Admin Interface: http://YOUR_IP:8000
+
+* Original README.md below *
+
 # Adventure Land - The Open Source CODE MMORPG
 
 https://adventure.land
