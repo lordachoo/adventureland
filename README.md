@@ -172,3 +172,21 @@ If you have specific requirements, for example a unique cloud architecture in mi
 ## License
 
 https://github.com/kaansoral/adventureland/blob/master/LICENSE
+
+# Notes on Docker
+
+- `deployAdventureLand.sh` does the below already
+- Assumes a standard clone of the repo
+
+## Deploying the server manually
+
+```
+git pull origin dockerization
+docker build -t adventureland .
+docker compose up
+```
+
+## Access
+
+Web server: http://YOUR_IP:8083
+Admin Interface: http://YOUR_IP:8000
